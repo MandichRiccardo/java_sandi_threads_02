@@ -11,11 +11,16 @@ public class Produttore extends Thread{
         while (!isInterrupted()){
             synchronized (box){
                 if(box.isEmpty()){
-                    box.setValore(new java.util.Random().nextInt(1, 11));
+                    box.setEmpty(false);
+                    box.setValore();
                     System.out.println("sono " + getName() + " e ho prodotto un valore");
                 }
                 box.notifyAll();
-                System.out.println("sono " + getName() + " e ho notificato box");
+            }
+            try{
+                box.wait();
+            }catch(InterruptedException e){
+                interrupt();
             }
             try {
                 sleep(500);

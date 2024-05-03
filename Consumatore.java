@@ -16,23 +16,28 @@ public class Consumatore extends Thread{
             synchronized (box){
                 if (!box.isEmpty()) {
                     try{
-                        if(box.getValore()>=inizioIntervallo && box.getValore()<=fineIntervallo) box.setEmpty(true);
-                        System.out.println("sono " + getName() + " e ho preso un valore");
+                        if(box.getValore()>=inizioIntervallo && box.getValore()<=fineIntervallo) {
+                            box.setEmpty(true);
+                            System.out.println("sono " + getName() + " e ho preso un valore");
+                        }else{
+                            System.out.println("sono " + getName() + " e non ho trovato un valore che mi interessava");
+                        }
                         box.notifyAll();
-                        System.out.println("sono " + getName() + " e ho notificato box");
                         try {
                             box.wait();
-                            System.out.println("sono " + getName() + " e ho messo box in attesa");
                         } catch (InterruptedException e) {
+                            if(box.getValore()>=inizioIntervallo && box.getValore()<=fineIntervallo) {
+                            box.setEmpty(true);
+                            System.out.println("sono " + getName() + " e ho preso un valore");
+                        }else{
+                            System.out.println("sono " + getName() + " e non ho trovato un valore che mi interessava");
+                        }
                             interrupt();
                             System.out.println("sono " + getName() + " e ho chiamato interrupt()");
                         }
                     }catch (BoxIsEmptyException ignore){}
                 }
             }
-            try {
-                sleep(500);
-            } catch (InterruptedException ignored) {}
         }
     }
 }

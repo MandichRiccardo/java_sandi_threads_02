@@ -7,5 +7,23 @@ public class Test{
         azienda.start();
         cliente1.start();
         cliente2.start();
+        try{
+            Produttore.sleep(1000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        System.out.println("\t\t\t\t\t\tinizio a chiamare gli interrupt");
+        azienda.interrupt();
+        cliente1.interrupt();
+        cliente2.interrupt();
+        System.out.println("\t\t\t\t\t\tfinisco di chiamare gli interrupt");
+        try{
+            azienda.join();
+            cliente1.join();
+            cliente2.join();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        box.print();
     }
 }
