@@ -20,6 +20,7 @@ public class Produttore extends Thread{
             try{
                 box.wait();
             }catch(InterruptedException e){
+                System.out.println("sono " + getName() + " e ho chiamato interrupt()");
                 interrupt();
             }
             try {

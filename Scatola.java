@@ -1,7 +1,11 @@
 public class Scatola{
     private boolean empty;
     private int valore;
-
+/*
+    public Scatola(){
+        setEmpty(true);
+    }
+*/
     public boolean isEmpty() {
         return empty;
     }
